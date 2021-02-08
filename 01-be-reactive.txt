@@ -1,3 +1,5 @@
+Mostly from the perspective of an angular developer
+
 Async pipe vs Subscribe:
 ========================
 Use async over subscribe as much as possible.
@@ -34,3 +36,5 @@ Reactively in General
 ======================
 Think of events and streams instead of imperative code.
 - You can create seperate input streams / observables for various inputs/changes/events and then use combineLatest to produce say a new output stream, to which you can then subscribe using the async pipe in the angular template.
+
+RxJS has quite a few operators but in practice use 10, maybe 15 operators
