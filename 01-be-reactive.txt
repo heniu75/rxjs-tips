@@ -1,0 +1,36 @@
+Async pipe vs Subscribe:
+========================
+Use async over subscribe as much as possible.
+
+If you use subscribe, you have to unsubscribe.
+
+- to unsubscribe you can you can use takeuntil or unsubscribe;
+
+- if you use async, you can use hot module replacement 
+-- ng serve -hmr
+
+Change Detection:
+=================
+- Important to use ChangeDetectionStrategy.OnPush
+- If you dont, then ng checks the entire hierarchy of the application
+-- this is very very bad if you have many components and many expressions
+
+- If you do use OnPush, and an event fires on a component withouth On Push, then angular only runs CD for the component without OnPush and it's parents 
+
+If you have a component without any input and you use ChangeDetectionStrategy.OnPush then angular will assume that the component has not changed.
+
+When using OnPush, you should use async pipe for rxjs.
+
+Subscribe within Subscribe:
+===========================
+Dont use nested subscribe. It can work but try to avoid. Unsubscribe can be more complex.
+This stops you thinking reactively.
+
+- Rather use switchMap (a higher order rxjs operator)
+-- You are switching from one api to another api
+-- Also works nicely with template async pipe
+
+Reactively in General
+======================
+Think of events and streams instead of imperative code.
+- You can create seperate input streams / observables for various inputs/changes/events and then use combineLatest to produce say a new output stream, to which you can then subscribe using the async pipe in the angular template.
